@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, FileText, Download, X, Loader, AlertCircle } from 'lucide-react';
-import { analyzeDocument } from '../utils/openai';
 import Tesseract from 'tesseract.js';
 
 interface AnalysisResult {
@@ -68,16 +67,11 @@ const DocumentAnalyzer: React.FC = () => {
         { logger: m => console.log(m) }
       );
 
-      // Analyze the extracted text using OpenAI
-      const analysis = await analyzeDocument(text);
-
-      if (analysis.includes("currently unavailable")) {
-        setError("OpenAI API key is not configured. Document analysis is disabled.");
-        setIsProcessing(false);
-        return;
-      }
-
-      setResult({ text, analysis });
+      // Simple analysis - just return the extracted text
+      setResult({ 
+        text,
+        analysis: "Text has been extracted from the document. For detailed analysis, please contact our team."
+      });
     } catch (err) {
       console.error('Processing error:', err);
       setError('Failed to process document. Please try again.');
@@ -114,9 +108,9 @@ const DocumentAnalyzer: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold">AI Document Analysis</h2>
+        <h2 className="text-3xl font-bold">Document Analysis</h2>
         <p className="text-gray-400">
-          Upload any document to get an instant AI-powered analysis
+          Upload any document to extract text and get a basic analysis
         </p>
       </div>
 
@@ -229,7 +223,7 @@ const DocumentAnalyzer: React.FC = () => {
 
             <div className="grid grid-cols-1 gap-6">
               <div className="border border-white/20 rounded-lg p-6">
-                <h4 className="font-semibold mb-4">AI Analysis</h4>
+                <h4 className="font-semibold mb-4">Analysis</h4>
                 <div className="prose prose-invert max-w-none">
                   {result.analysis.split('\n').map((paragraph, index) => (
                     <p key={index} className="mb-4">{paragraph}</p>

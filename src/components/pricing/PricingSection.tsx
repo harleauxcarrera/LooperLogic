@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import IntroCallModal from '../IntroCallModal';
+import { PopupButton } from '@typeform/embed-react';
+import { useStripe } from '../../hooks/useStripe';
 
 const PricingSection: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { redirectToCheckout } = useStripe();
+  const [isLoading, setIsLoading] = useState<string | null>(null);
+
+  const handleSubscribe = async (priceId: string) => {
+    try {
+      setIsLoading(priceId);
+      await redirectToCheckout(priceId);
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert('Failed to process subscription. Please try again.');
+    } finally {
+      setIsLoading(null);
+    }
+  };
 
   const plans = [
     {
@@ -14,6 +28,7 @@ const PricingSection: React.FC = () => {
       subtitle: "Billed monthly",
       buttonText: "Get started",
       buttonStyle: "border",
+      priceId: "price_1QvrFuRDoML1xyXm2CK1ZhW0",
       features: [
         "Unlimited requests",
         "Unlimited users",
@@ -28,6 +43,7 @@ const PricingSection: React.FC = () => {
       buttonText: "Sign up now →",
       buttonStyle: "gradient",
       popular: true,
+      priceId: "price_1QvrMTRDoML1xyXm6p9CZ8Zl",
       features: [
         "Unlimited requests",
         "Unlimited users",
@@ -97,20 +113,33 @@ const PricingSection: React.FC = () => {
                 <p className="text-gray-400 mt-2">{plan.subtitle}</p>
               </div>
 
-              <button
-                onClick={() => {
-                  if (plan.title === "Ad-hoc") {
-                    setIsModalOpen(true);
-                  }
-                }}
-                className={`w-full py-3 px-6 rounded-lg font-medium mb-8 transition-all ${
-                  plan.buttonStyle === 'gradient'
-                    ? 'bg-gradient-to-r from-[#7FE7D9] to-[#7FE7D9] hover:opacity-90 text-[#0A192F]'
-                    : 'border border-white/20 hover:bg-white/5'
-                }`}
-              >
-                {plan.buttonText}
-              </button>
+              {plan.title === 'Ad-hoc' ? (
+                <PopupButton
+                  id="xwYUAXbV"
+                  size={80}
+                  hideHeaders
+                  hideFooter
+                  className={`w-full py-3 px-6 rounded-lg font-medium mb-8 transition-all ${
+                    plan.buttonStyle === 'gradient'
+                      ? 'bg-gradient-to-r from-[#7FE7D9] to-[#7FE7D9] hover:opacity-90 text-[#0A192F]'
+                      : 'border border-white/20 hover:bg-white/5'
+                  }`}
+                >
+                  {plan.buttonText}
+                </PopupButton>
+              ) : (
+                <button
+                  onClick={() => handleSubscribe(plan.priceId)}
+                  disabled={isLoading === plan.priceId}
+                  className={`w-full py-3 px-6 rounded-lg font-medium mb-8 transition-all ${
+                    plan.buttonStyle === 'gradient'
+                      ? 'bg-gradient-to-r from-[#7FE7D9] to-[#7FE7D9] hover:opacity-90 text-[#0A192F]'
+                      : 'border border-white/20 hover:bg-white/5'
+                  } ${isLoading === plan.priceId ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  {isLoading === plan.priceId ? 'Processing...' : plan.buttonText}
+                </button>
+              )}
 
               <ul className="space-y-4">
                 {plan.features.map((feature, i) => (
@@ -124,11 +153,6 @@ const PricingSection: React.FC = () => {
           ))}
         </div>
       </div>
-
-      <IntroCallModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

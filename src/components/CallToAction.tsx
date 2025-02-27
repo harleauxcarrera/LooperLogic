@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import IntroCallModal from './IntroCallModal';
+import { PopupButton } from '@typeform/embed-react';
 
 const CallToAction: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <section className="py-24 bg-[#0A192F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,13 +22,16 @@ const CallToAction: React.FC = () => {
                 <p className="text-lg text-gray-300">
                   Schedule a free strategy call to discuss your automation needs and discover how we can help you scale.
                 </p>
-                <button
-                  onClick={() => setIsModalOpen(true)}
+                <PopupButton
+                  id="xwYUAXbV"
+                  size={80}
+                  hideHeaders
+                  hideFooter
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#BD34FE] text-white rounded-full font-semibold hover:bg-[#A020F0] transition-all transform hover:scale-105"
                 >
                   Book your free call
                   <ArrowRight className="w-5 h-5" />
-                </button>
+                </PopupButton>
               </div>
               <div className="relative">
                 <img
@@ -44,11 +45,6 @@ const CallToAction: React.FC = () => {
           </div>
         </motion.div>
       </div>
-
-      <IntroCallModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

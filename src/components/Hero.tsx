@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import IntroCallModal from './IntroCallModal';
+import { ArrowRight } from 'lucide-react';
+import { PopupButton } from '@typeform/embed-react';
 
 const Hero: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const scrollToServices = () => {
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
       const navbarHeight = 80;
-      const elementPosition = servicesSection.getBoundingClientRect().top;
+      const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
 
       window.scrollTo({
@@ -84,20 +83,21 @@ const Hero: React.FC = () => {
             variants={textVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <motion.button
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-              onClick={() => setIsModalOpen(true)}
-              className="px-8 py-4 bg-[#BD34FE] text-white font-semibold rounded-full hover:bg-[#A020F0] transition-colors"
+            <PopupButton
+              id="xwYUAXbV"
+              size={80}
+              hideHeaders
+              hideFooter
+              className="px-8 py-4 bg-[#BD34FE] text-white font-semibold rounded-full hover:bg-[#A020F0] transition-all transform hover:scale-105 inline-flex items-center justify-center gap-2"
             >
-              Schedule Strategy Call →
-            </motion.button>
+              Schedule Strategy Call
+              <ArrowRight className="w-5 h-5" />
+            </PopupButton>
             <motion.button
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
-              onClick={scrollToServices}
+              onClick={() => scrollToSection('services')}
               className="px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 transition-colors"
             >
               View Solutions
@@ -105,11 +105,6 @@ const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      <IntroCallModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

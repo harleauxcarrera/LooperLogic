@@ -9,7 +9,8 @@ import FAQ from './pages/FAQ';
 import Resources from './pages/Resources';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
-import Demo from './pages/Demo';
+import Success from './pages/Success';
+import Cancel from './pages/Cancel';
 import ParallaxStars from './components/ParallaxStars';
 
 const App: React.FC = () => {
@@ -34,7 +35,8 @@ const App: React.FC = () => {
               <Route path="/resources" element={<Resources />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
-              <Route path="/demo" element={<Demo />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/cancel" element={<Cancel />} />
             </Routes>
           </main>
           <Footer />

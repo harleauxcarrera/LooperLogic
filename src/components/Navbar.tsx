@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import AnimatedRobot from './AnimatedRobot';
+import { PopupButton } from '@typeform/embed-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,16 +18,6 @@ const Navbar = () => {
         behavior: 'smooth'
       });
       setIsOpen(false);
-    }
-  };
-
-  const scrollToHero = () => {
-    const heroSection = document.querySelector('section');
-    if (heroSection) {
-      const button = heroSection.querySelector('button');
-      if (button) {
-        button.click();
-      }
     }
   };
 
@@ -69,12 +60,15 @@ const Navbar = () => {
             >
               Pricing
             </button>
-            <button
-              onClick={scrollToHero}
+            <PopupButton 
+              id="xwYUAXbV"
+              size={80}
+              hideHeaders
+              hideFooter
               className="px-6 py-2 bg-[#BD34FE] text-white rounded-full font-medium hover:bg-[#A020F0] transition-colors"
             >
               Book intro call →
-            </button>
+            </PopupButton>
           </div>
           
           <div className="md:hidden">
@@ -116,15 +110,15 @@ const Navbar = () => {
             >
               Pricing
             </button>
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                scrollToHero();
-              }}
+            <PopupButton 
+              id="xwYUAXbV"
+              size={80}
+              hideHeaders
+              hideFooter
               className="w-full px-6 py-2 bg-[#BD34FE] text-white rounded-full font-medium hover:bg-[#A020F0] transition-colors"
             >
               Book intro call →
-            </button>
+            </PopupButton>
           </div>
         </div>
       )}

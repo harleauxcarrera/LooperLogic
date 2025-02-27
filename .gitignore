@@ -1,27 +1,35 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Build output directories
+dist/
+
+# Environment files (Sensitive information)
+.env
+
+# SSL/TLS Certificates and Keys (Sensitive)
+*.pem
+*.crt
+*.key
+
+# Editor settings
+.vscode/
+.bolt/
+
+# Netlify build artifacts (if applicable)
+.netlify/
+
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# TypeScript build artifacts
+*.tsbuildinfo
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Temporary files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Environment variables
-.env
+Thumbs.db
+node_modules
