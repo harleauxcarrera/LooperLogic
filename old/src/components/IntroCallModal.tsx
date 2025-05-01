@@ -59,9 +59,9 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
         return !!formData.revenue;
       case 7:
         return !!(
-          formData.firstName.trim() && 
-          formData.lastName.trim() && 
-          formData.company.trim() && 
+          formData.firstName.trim() &&
+          formData.lastName.trim() &&
+          formData.company.trim() &&
           isEmailValid(formData.email)
         );
       default:
@@ -71,7 +71,7 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
 
   const handleNext = () => {
     if (!isStepValid()) return;
-    
+
     if (step === 7) {
       setStep(8);
     } else if (step < 8) {
@@ -89,7 +89,7 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
 
   const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     if (['businessType', 'projectType', 'revenue'].includes(field)) {
       if (field === 'businessType' && value === 'Other') {
         return;
@@ -127,11 +127,10 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
                   <button
                     key={type}
                     onClick={() => handleInputChange('businessType', type)}
-                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${
-                      formData.businessType === type
+                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${formData.businessType === type
                         ? 'border-[#BD34FE] bg-[#BD34FE]/10'
                         : 'border-white/10 hover:border-white/30'
-                    }`}
+                      }`}
                   >
                     {type}
                   </button>
@@ -184,11 +183,10 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
                   <button
                     key={type}
                     onClick={() => handleInputChange('projectType', type)}
-                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${
-                      formData.projectType === type
+                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${formData.projectType === type
                         ? 'border-[#BD34FE] bg-[#BD34FE]/10'
                         : 'border-white/10 hover:border-white/30'
-                    }`}
+                      }`}
                   >
                     {type}
                   </button>
@@ -219,11 +217,10 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
                   <button
                     key={range}
                     onClick={() => handleInputChange('revenue', range)}
-                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${
-                      formData.revenue === range
+                    className={`w-full px-4 py-3 border rounded-lg text-left transition-colors ${formData.revenue === range
                         ? 'border-[#BD34FE] bg-[#BD34FE]/10'
                         : 'border-white/10 hover:border-white/30'
-                    }`}
+                      }`}
                   >
                     {range}
                   </button>
@@ -256,11 +253,10 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none focus:border-[#BD34FE] text-white ${
-                  formData.email && !isEmailValid(formData.email) 
-                    ? 'border-red-500' 
+                className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none focus:border-[#BD34FE] text-white ${formData.email && !isEmailValid(formData.email)
+                    ? 'border-red-500'
                     : 'border-white/10'
-                }`}
+                  }`}
               />
               <input
                 type="text"
@@ -275,7 +271,7 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
           {step === 8 && (
             <div className="h-[600px]">
               <InlineWidget
-                url="https://calendly.com/carlos-looperlogic/consultation-call"
+                url="https://calendly.com/carlos-looperlogic/30min"
                 prefill={{
                   email: formData.email,
                   name: `${formData.firstName} ${formData.lastName}`,
@@ -309,11 +305,10 @@ const IntroCallModal: React.FC<IntroCallModalProps> = ({ isOpen, onClose }) => {
               <button
                 onClick={handleNext}
                 disabled={!isStepValid()}
-                className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${
-                  !isStepValid()
+                className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${!isStepValid()
                     ? 'bg-gray-600 cursor-not-allowed'
                     : 'bg-[#BD34FE] hover:bg-[#A020F0]'
-                }`}
+                  }`}
               >
                 Continue
                 <ArrowRight size={20} />
